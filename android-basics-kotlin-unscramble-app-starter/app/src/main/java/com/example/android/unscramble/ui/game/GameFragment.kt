@@ -44,22 +44,6 @@ class GameFragment : Fragment() {
 
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
-
-        viewModel.score.observe(viewLifecycleOwner,
-            { newScore ->
-                binding.score.text = getString(R.string.score, newScore)
-            })
-
-        viewModel.currentWordCount.observe(viewLifecycleOwner,
-            { newWordCount ->
-                binding.wordCount.text =
-                    getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
-            })
-
-        viewModel.currentScrambledWord.observe(viewLifecycleOwner,
-            { newWord ->
-                binding.textViewUnscrambledWord.text = newWord
-            })
     }
 
     private fun onSubmitWord() {
@@ -82,12 +66,6 @@ class GameFragment : Fragment() {
         } else {
             showFinalScoreDialog()
         }
-    }
-
-    private fun getNextScrambledWord(): String {
-        val tempWord = allWordsList.random().toCharArray()
-        tempWord.shuffle()
-        return String(tempWord)
     }
 
     private fun restartGame() {
